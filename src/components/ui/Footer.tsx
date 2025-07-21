@@ -13,28 +13,34 @@ const footerSections = {
       { label: "Apparel", href: "#apparel" },
       { label: "Automotive", href: "#automotive" },
       { label: "Filtration", href: "#filtration" },
-      { label: "Customised Nonwoven", href: "#solutions" },
+      { label: "Customised Solutions", href: "#solutions" },
     ],
   },
   company: {
     title: "COMPANY",
     links: [
-      { label: "Who We Are", href: "#about" },
+      { label: "Innovation", href: "#about" },
       { label: "Global Competency", href: "#competency" },
-      { label: "Innovation", href: "#innovation" },
-      { label: "ESG Impact", href: "#contact" },
+      { label: "About Us", href: "#innovation" },
+      { label: "Contact Us", href: "#contact" },
     ],
   },
   more: {
     title: "MORE",
     links: [
-      { label: "Contact Us", href: "#privacy" },
       { label: "Careers", href: "#careers" },
+      { label: "Privacy Policy", href: "#competency" },
+      { label: "Terms and Conditions", href: "#innovation" },
     ],
   },
   followUs: {
     title: "FOLLOW US",
-    links: [{ label: "LinkedIn", href: "#linkedin" }],
+    links: [
+      { label: "Twitter", href: "#linkedin" },
+      { label: "LinkedIn", href: "#linkedin" },
+      { label: "Instagram", href: "#linkedin" },
+      { label: "Medium", href: "#linkedin" },
+    ],
   },
 };
 

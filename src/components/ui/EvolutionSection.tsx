@@ -31,7 +31,7 @@ interface VehicleData {
 type VehicleTypeKey = keyof VehicleData;
 
 const LoadingSpinner: React.FC = () => (
-  <div className="relative h-5 w-5">
+  <div className="relative h-4 w-4 sm:h-5 sm:w-5">
     <div className="absolute inset-0 rounded-full border-2 border-white/20"></div>
     <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-white animate-spin"></div>
   </div>
@@ -39,10 +39,10 @@ const LoadingSpinner: React.FC = () => (
 
 const CircularProgress: React.FC<{ progress: number; size?: number }> = ({
   progress,
-  size = 60,
+  size = 50,
 }) => {
   const center = size / 2;
-  const radius = center - 3;
+  const radius = center - 2;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
@@ -59,7 +59,7 @@ const CircularProgress: React.FC<{ progress: number; size?: number }> = ({
           cy={center}
           r={radius}
           stroke="rgba(255, 255, 255, 0.2)"
-          strokeWidth="2"
+          strokeWidth="1.5"
           fill="none"
         />
         <circle
@@ -67,7 +67,7 @@ const CircularProgress: React.FC<{ progress: number; size?: number }> = ({
           cy={center}
           r={radius}
           stroke="rgba(255, 255, 255, 0.9)"
-          strokeWidth="3"
+          strokeWidth="2"
           fill="none"
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -94,7 +94,7 @@ const ViewIcon: React.FC<{
             <img
               src="/commercial-body.svg"
               alt="Complete Vehicle"
-              className="w-15 h-15 object-contain"
+              className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
             />
           );
         case "front":
@@ -102,7 +102,7 @@ const ViewIcon: React.FC<{
             <img
               src="/commercial-engine.svg"
               alt="Engine"
-              className="w-15 h-15 object-contain"
+              className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
             />
           );
         case "cabin":
@@ -110,7 +110,7 @@ const ViewIcon: React.FC<{
             <img
               src="/commercial-cabin.svg"
               alt="Cabin"
-              className="w-15 h-15 object-contain"
+              className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
             />
           );
         default:
@@ -118,7 +118,7 @@ const ViewIcon: React.FC<{
             <img
               src="/commercial-body.svg"
               alt="Default"
-              className="w-15 h-15 object-contain"
+              className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
             />
           );
       }
@@ -130,7 +130,7 @@ const ViewIcon: React.FC<{
           <img
             src={completeBody.src}
             alt="Complete"
-            className="w-15 h-15 object-contain"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
           />
         );
       case "front":
@@ -138,7 +138,7 @@ const ViewIcon: React.FC<{
           <img
             src={Front.src}
             alt="Front"
-            className="w-15 h-15 object-contain"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
           />
         );
       case "cabin":
@@ -146,7 +146,7 @@ const ViewIcon: React.FC<{
           <img
             src={cabinImg.src}
             alt="Cabin"
-            className="w-15 h-15 object-contain"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
           />
         );
       case "trunk":
@@ -154,7 +154,7 @@ const ViewIcon: React.FC<{
           <img
             src={TrunkImg.src}
             alt="Trunk"
-            className="w-15 h-15 object-contain"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
           />
         );
       case "exterior":
@@ -162,7 +162,7 @@ const ViewIcon: React.FC<{
           <img
             src={exteriorImg.src}
             alt="Exterior"
-            className="w-15 h-15 object-contain"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
           />
         );
       default:
@@ -170,7 +170,7 @@ const ViewIcon: React.FC<{
           <img
             src={completeBody.src}
             alt="Default"
-            className="w-15 h-15 object-contain"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
           />
         );
     }
@@ -178,7 +178,7 @@ const ViewIcon: React.FC<{
 
   return (
     <div
-      className={`w-24 h-15 flex items-center justify-center transition-all duration-300 rounded-lg ${
+      className={`w-16 h-12 sm:w-18 sm:h-14 md:w-20 md:h-16 lg:w-24 lg:h-18 flex items-center justify-center transition-all duration-300 rounded-lg ${
         isActive
           ? "text-white shadow-lg scale-110"
           : "bg-transparent text-gray-400"
@@ -266,8 +266,19 @@ export default function EvolutionSection() {
   const [isVideoLoading, setIsVideoLoading] = useState<boolean>(false);
   const [videoProgress, setVideoProgress] = useState<number>(0);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const currentVehicle = vehicleData[activeVehicleType];
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -432,24 +443,23 @@ export default function EvolutionSection() {
       };
     }
 
-    // Return an empty cleanup function when currentVideo is not available
     return () => {};
   }, [activeVehicleType, activeView]);
 
   return (
-    <div className="bg-black pb-[100px]">
-      <div ref={containerRef} style={{ height: "300vh" }}>
+    <div className="bg-black pb-16 sm:pb-20 md:pb-24 lg:pb-[100px]">
+      <div ref={containerRef} style={{ height: isMobile ? "200vh" : "300vh" }}>
         <section
           ref={sectionRef}
-          className="bg-black text-white h-screen overflow-hidden sticky top-0 flex items-center justify-center"
+          className="bg-black text-white min-h-screen overflow-hidden sticky top-0 flex items-center justify-center"
         >
-          <div className="w-full max-w-7xl mx-auto px-4 relative h-full">
+          <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative h-full py-8 sm:py-12 md:py-16 lg:py-0">
             <motion.div
               className="absolute left-1/2"
               animate={{
                 x: "-50%",
-                y: scrollProgress < 0.15 ? "-50%" : "-50%",
-                top: scrollProgress < 0.15 ? "50%" : "20%",
+                y: "-50%",
+                top: scrollProgress < 0.15 ? "50%" : isMobile ? "10%" : "15%",
               }}
               transition={{ duration: 0.6, ease: "easeOut" }}
               style={{
@@ -458,92 +468,152 @@ export default function EvolutionSection() {
                 zIndex: 10,
               }}
             >
-              <h2 className="text-white font-light text-3xl md:text-4xl lg:text-3xl xl:text-5xl tracking-tight">
+              <h2 className="text-white font-light text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl tracking-tight px-4">
                 <span className="leading-tight">
                   Evolving the drive with{" "}
                   <span className="font-bold">360-degree</span>{" "}
-                  <br className="hidden md:block" /> nonwoven solutions
+                  <br className="hidden sm:block" /> nonwoven solutions
                 </span>
               </h2>
             </motion.div>
 
             <motion.div
-              className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-16 h-full items-center"
+              className="flex flex-col lg:grid lg:grid-cols-[40%_60%] gap-8 sm:gap-12 md:gap-16 h-full items-center justify-center"
               animate={{
                 opacity: scrollProgress > 0.15 ? 1 : 0,
                 y: scrollProgress > 0.15 ? 0 : 100,
               }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               style={{
-                marginTop: scrollProgress > 0.15 ? "120px" : "0px",
+                marginTop: scrollProgress > 0.15 ? (isMobile ? "80px" : "120px") : "0px",
               }}
             >
-              <div className="flex flex-col justify-center pl-8 lg:pl-16 relative">
-                <motion.button
-                  type="button"
-                  className="text-left mb-12 lg:mb-16"
-                  onClick={() => {
-                    setActiveVehicleType("passenger");
-                    setActiveView(0);
-                  }}
-                  animate={{
-                    opacity: activeVehicleType === "passenger" ? 1 : 0.4,
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h3
-                    className={`font-medium text-left pb-2 text-2xl lg:text-3xl xl:text-4xl transition-colors duration-300 ${
-                      activeVehicleType === "passenger"
-                        ? "text-white"
-                        : "text-gray-500"
-                    }`}
+              <div className="flex flex-col justify-center lg:pl-8 xl:pl-16 relative w-full">
+                <div className="md:hidden flex justify-center space-x-8 mb-12">
+                  <motion.button
+                    type="button"
+                    className="text-center"
+                    onClick={() => {
+                      setActiveVehicleType("passenger");
+                      setActiveView(0);
+                    }}
+                    animate={{
+                      opacity: activeVehicleType === "passenger" ? 1 : 0.4,
+                    }}
+                    transition={{ duration: 0.3 }}
                   >
-                    Passenger vehicles
-                  </h3>
-                  <p
-                    className={`font-light text-left text-base lg:text-lg xl:text-xl transition-colors duration-300 ${
-                      activeVehicleType === "passenger"
-                        ? "text-gray-300"
-                        : "text-gray-600"
-                    }`}
-                  >
-                    Revving up innovation from <br /> interior to exterior.
-                  </p>
-                </motion.button>
+                    <h3
+                      className={`font-medium text-center pb-1 text-lg transition-colors duration-300 ${
+                        activeVehicleType === "passenger"
+                          ? "text-white"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      Passenger vehicles
+                    </h3>
+                  </motion.button>
 
-                <motion.button
-                  type="button"
-                  className="text-left"
-                  onClick={() => {
-                    setActiveVehicleType("commercial");
-                    setActiveView(0);
-                  }}
-                  animate={{
-                    opacity: activeVehicleType === "commercial" ? 1 : 0.4,
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h3
-                    className={`font-medium text-left pb-2 text-2xl lg:text-3xl xl:text-4xl transition-colors duration-300 ${
-                      activeVehicleType === "commercial"
-                        ? "text-white"
-                        : "text-gray-500"
-                    }`}
+                  <motion.button
+                    type="button"
+                    className="text-center"
+                    onClick={() => {
+                      setActiveVehicleType("commercial");
+                      setActiveView(0);
+                    }}
+                    animate={{
+                      opacity: activeVehicleType === "commercial" ? 1 : 0.4,
+                    }}
+                    transition={{ duration: 0.3 }}
                   >
-                    Commercial vehicles
-                  </h3>
-                  <p
-                    className={`font-light text-left text-base lg:text-lg xl:text-xl transition-colors duration-300 ${
-                      activeVehicleType === "commercial"
-                        ? "text-gray-300"
-                        : "text-gray-600"
-                    }`}
-                  >
-                    Advancing engineering <br /> for heavy-duty vehicles.
-                  </p>
-                </motion.button>
+                    <h3
+                      className={`font-medium text-center pb-1 text-lg transition-colors duration-300 ${
+                        activeVehicleType === "commercial"
+                          ? "text-white"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      Commercial vehicles
+                    </h3>
+                  </motion.button>
+                </div>
 
-                <div className="absolute left-0 top-0 h-full w-[3px] bg-gray-600 rounded-md overflow-hidden">
+                <div className="hidden md:block">
+                  <motion.button
+                    type="button"
+                    className="text-center lg:text-left mb-8 sm:mb-10 lg:mb-16"
+                    onClick={() => {
+                      setActiveVehicleType("passenger");
+                      setActiveView(0);
+                    }}
+                    animate={{
+                      opacity: activeVehicleType === "passenger" ? 1 : 0.4,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h3
+                      className={`font-medium text-center lg:text-left pb-1 sm:pb-2 text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl transition-colors duration-300 ${
+                        activeVehicleType === "passenger"
+                          ? "text-white"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      Passenger vehicles
+                    </h3>
+                    <p
+                      className={`font-light text-center lg:text-left text-sm sm:text-base md:text-lg lg:text-base xl:text-lg 2xl:text-xl transition-colors duration-300 ${
+                        activeVehicleType === "passenger"
+                          ? "text-gray-300"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      Revving up Nonwoven innovation on from <br className="hidden lg:block" /> interior to exterior.
+                    </p>
+                  </motion.button>
+
+                  <motion.button
+                    type="button"
+                    className="text-center lg:text-left"
+                    onClick={() => {
+                      setActiveVehicleType("commercial");
+                      setActiveView(0);
+                    }}
+                    animate={{
+                      opacity: activeVehicleType === "commercial" ? 1 : 0.4,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h3
+                      className={`font-medium text-center lg:text-left pb-1 sm:pb-2 text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl transition-colors duration-300 ${
+                        activeVehicleType === "commercial"
+                          ? "text-white"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      Commercial vehicles
+                    </h3>
+                    <p
+                      className={`font-light text-center lg:text-left text-sm sm:text-base md:text-lg lg:text-base xl:text-lg 2xl:text-xl transition-colors duration-300 ${
+                        activeVehicleType === "commercial"
+                          ? "text-gray-300"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      Advancing Nonwoven engineering <br className="hidden lg:block" /> for heavy-duty vehicles.
+                    </p>
+                  </motion.button>
+                </div>
+
+                <div className="md:hidden absolute bottom-0 left-1/2 transform -translate-x-1/2 w-32 h-[3px] bg-gray-600 rounded-md overflow-hidden">
+                  <motion.div
+                    className="absolute h-[3px] bg-white rounded-md"
+                    animate={{
+                      width: "50%",
+                      left: activeVehicleType === "passenger" ? "0%" : "50%",
+                    }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  />
+                </div>
+                <div className="hidden md:block absolute left-0 top-0 h-full w-[3px] bg-gray-600 rounded-md overflow-hidden">
                   <motion.div
                     className="absolute w-[3px] bg-white rounded-md"
                     animate={{
@@ -555,8 +625,8 @@ export default function EvolutionSection() {
                 </div>
               </div>
 
-              <div className="relative flex flex-col items-center justify-center h-full">
-                <div className="relative flex items-center justify-center w-full min-h-[400px] mb-8">
+              <div className="relative flex flex-col items-center justify-center h-full w-full">
+                <div className="relative flex items-center justify-center w-full h-48 sm:h-64 md:h-80 lg:h-96 xl:h-[400px] mb-4 sm:mb-6 md:mb-8">
                   <motion.div
                     className="absolute inset-0 flex items-center justify-center"
                     animate={{
@@ -572,7 +642,7 @@ export default function EvolutionSection() {
                         ref={(el) => {
                           videoRefs.current[`passenger-${activeView}`] = el;
                         }}
-                        className="max-w-full max-h-[400px] object-contain"
+                        className="w-full h-full object-contain"
                         autoPlay={isVideoPlaying}
                         muted
                         loop
@@ -605,7 +675,7 @@ export default function EvolutionSection() {
                         ref={(el) => {
                           videoRefs.current[`commercial-${activeView}`] = el;
                         }}
-                        className="max-w-full max-h-[400px] object-contain"
+                        className="w-full h-full object-contain"
                         autoPlay={isVideoPlaying}
                         muted
                         loop
@@ -625,16 +695,16 @@ export default function EvolutionSection() {
                 </div>
 
                 <motion.div
-                  className="w-full flex justify-center relative z-10"
+                  className="w-full flex flex-col items-center relative z-10 px-2"
                   animate={{
                     opacity: scrollProgress > 0.15 ? 1 : 0,
                     y: scrollProgress > 0.15 ? 0 : 50,
                   }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  <div className="flex justify-center items-center relative px-8">
+                  <div className="flex justify-center items-center relative w-full max-w-2xl mb-6 md:mb-0">
                     <motion.div
-                      className="flex items-center justify-center space-x-4 md:space-x-6 lg:space-x-8"
+                      className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-6"
                       animate={{
                         opacity: activeVehicleType === "passenger" ? 1 : 0,
                         y: activeVehicleType === "passenger" ? 0 : 30,
@@ -661,7 +731,7 @@ export default function EvolutionSection() {
                               isActive={activeView === index}
                               vehicleType="passenger"
                             />
-                            <span className="mt-2 text-xs md:text-sm font-light text-center">
+                            <span className="mt-1 sm:mt-2 text-xs sm:text-sm font-light text-center max-w-16 sm:max-w-20 leading-tight">
                               {view.name}
                             </span>
                           </button>
@@ -705,34 +775,64 @@ export default function EvolutionSection() {
 
                     {currentVehicle.views.length > 1 && (
                       <motion.div
-                        className="absolute right-[-60px] md:right-[-80px] lg:right-[-100px] flex items-center"
+                        className="hidden md:block absolute -right-4 sm:-right-8 md:-right-12 lg:-right-16 xl:-right-20 flex items-center"
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.4 }}
                       >
-                        <div className="relative w-[60px] h-[60px] flex items-center justify-center">
+                        <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-[60px] lg:h-[60px] flex items-center justify-center">
                           <CircularProgress
                             progress={videoProgress}
-                            size={60}
+                            size={isMobile ? 48 : 60}
                           />
 
                           <button
                             type="button"
-                            className="relative z-10 w-[48px] h-[48px] rounded-full bg-black/40 backdrop-blur-sm border border-white/20 hover:border-white/40 hover:bg-black/60 transition-all duration-300 flex items-center justify-center group"
+                            className="relative z-10 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-[48px] lg:h-[48px] rounded-full bg-black/40 backdrop-blur-sm border border-white/20 hover:border-white/40 hover:bg-black/60 transition-all duration-300 flex items-center justify-center group"
                             onClick={handlePlayPause}
                             disabled={isVideoLoading}
                           >
                             {isVideoLoading ? (
                               <LoadingSpinner />
                             ) : isVideoPlaying ? (
-                              <Pause className="h-4 w-4 text-white group-hover:scale-110 transition-transform duration-200" />
+                              <Pause className="h-3 w-3 sm:h-4 sm:w-4 text-white group-hover:scale-110 transition-transform duration-200" />
                             ) : (
-                              <Play className="h-4 w-4 text-white ml-0.5 group-hover:scale-110 transition-transform duration-200" />
+                              <Play className="h-3 w-3 sm:h-4 sm:w-4 text-white ml-0.5 group-hover:scale-110 transition-transform duration-200" />
                             )}
                           </button>
                         </div>
                       </motion.div>
                     )}
                   </div>
+
+                  {currentVehicle.views.length > 1 && (
+                    <motion.div
+                      className="md:hidden flex justify-center"
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <div className="relative w-12 h-12 flex items-center justify-center">
+                        <CircularProgress
+                          progress={videoProgress}
+                          size={48}
+                        />
+
+                        <button
+                          type="button"
+                          className="relative z-10 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 hover:border-white/40 hover:bg-black/60 transition-all duration-300 flex items-center justify-center group"
+                          onClick={handlePlayPause}
+                          disabled={isVideoLoading}
+                        >
+                          {isVideoLoading ? (
+                            <LoadingSpinner />
+                          ) : isVideoPlaying ? (
+                            <Pause className="h-3 w-3 text-white group-hover:scale-110 transition-transform duration-200" />
+                          ) : (
+                            <Play className="h-3 w-3 text-white ml-0.5 group-hover:scale-110 transition-transform duration-200" />
+                          )}
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
                 </motion.div>
               </div>
             </motion.div>
@@ -742,3 +842,4 @@ export default function EvolutionSection() {
     </div>
   );
 }
+                

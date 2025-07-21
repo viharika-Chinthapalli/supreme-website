@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 import { useRef, useState } from "react";
 
 export default function HeroSection() {
@@ -15,11 +14,6 @@ export default function HeroSection() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  const scrollToNext = () => {
-    const nextSection = document.querySelector("#evolution-section");
-    nextSection?.scrollIntoView({ behavior: "smooth" });
-  };
 
   const handleVideoPlay = () => {
     setIsVideoLoaded(true);
@@ -55,60 +49,47 @@ export default function HeroSection() {
         </video>
       </div>
 
-      <div className="relative z-20 container mx-auto container-padding text-center text-white">
+      <div className="relative z-20 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 text-center text-white">
         <motion.div
-          className="mx-auto"
+          className="mx-auto max-w-7xl"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <motion.p
-            className="text-lg md:text-xl font-medium mb-6 tracking-wide"
+            className="text-sm sm:text-base md:text-lg lg:text-xl font-medium mb-4 sm:mb-6 tracking-wide"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Driven by performance
+            Performance in motion
           </motion.p>
 
           <motion.h1
-            className="text-white text-hero font-medium mb-6 text-balance text-3xl md:text-4xl lg:text-3xl xl:text-5xl"
+            className="text-white font-medium mb-6 text-balance leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
+            style={{
+              fontSize: 'clamp(1.75rem, 4vw + 1rem, 3.5rem)',
+              lineHeight: 'clamp(2rem, 4.5vw + 1.2rem, 4rem)'
+            }}
           >
-            <span className="block leading-tight">
+            <span className="block">
               Soft trims and{" "}
-              <span className="text-[#0067B1] mt-4">NVH solutions &nbsp;</span>
-              <br />
+              <span className="text-[#0067B1]">NVH solutions</span>
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>
               for seamless rides
             </span>
           </motion.h1>
         </motion.div>
       </div>
 
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.8 }}
-      >
-        <motion.button
-          onClick={scrollToNext}
-          className="flex flex-col items-center space-y-2 text-white hover:text-gray-300 transition-colors duration-200"
-          whileHover={{ y: -5 }}
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          aria-label="Scroll to next section"
-        >
-          <span className="text-sm font-medium">Discover More</span>
-          <ChevronDown className="w-6 h-6" />
-        </motion.button>
-      </motion.div>
 
-      <div className="absolute top-20 left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 right-10 w-48 h-48 bg-blue-400/20 rounded-full blur-3xl animate-float delay-1000" />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-16 h-16 sm:w-32 sm:h-32 bg-primary/20 rounded-full blur-2xl sm:blur-3xl animate-float" />
+      <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-10 w-24 h-24 sm:w-48 sm:h-48 bg-blue-400/20 rounded-full blur-2xl sm:blur-3xl animate-float delay-1000" />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-96 sm:h-96 bg-white/5 rounded-full blur-2xl sm:blur-3xl animate-pulse" />
     </motion.section>
   );
 }
