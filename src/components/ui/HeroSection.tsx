@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 
 export default function HeroSection() {
   const ref = useRef<HTMLElement>(null);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [, setIsVideoLoaded] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: ref,
