@@ -431,6 +431,9 @@ export default function EvolutionSection() {
         currentVideo.removeEventListener("ended", handleEnded);
       };
     }
+
+    // Return an empty cleanup function when currentVideo is not available
+    return () => {};
   }, [activeVehicleType, activeView]);
 
   return (
